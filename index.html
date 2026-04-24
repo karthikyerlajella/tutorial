@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Website</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --sidebar-bg: #0f1117;
+      --sidebar-border: #1e2130;
+      --sidebar-text: #c9cfe4;
+      --sidebar-hover: #1c2035;
+      --accent: #f4a855;
+      --accent-soft: rgba(244, 168, 85, 0.12);
+      --accent-glow: rgba(244, 168, 85, 0.25);
+      --body-bg: #f5f0e8;
+      --card-bg: #fffdf8;
+      --text-dark: #1a1a2e;
+      --text-muted: #6b6b82;
+      --border: #e8e0d0;
+      --footer-bg: #0f1117;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--body-bg);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── Sidebar ──────────────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      width: 220px;
+      min-width: 220px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: #2a2f45 transparent;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #2a2f45;
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--sidebar-border);
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-brand::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px;
+      flex: 1;
+    }
+
+    /* Category label */
+    .nav-category {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #4a5070;
+      padding: 8px 8px 4px;
+      margin-top: 12px;
+      display: block;
+    }
+
+    .nav-category:first-child {
+      margin-top: 0;
+    }
+
+    /* Parent toggle links */
+    .sidebar .nav-link {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--sidebar-text);
+      padding: 9px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+      position: relative;
+    }
+
+    .sidebar .nav-link:hover {
+      background: var(--sidebar-hover);
+      color: #fff;
+    }
+
+    .sidebar .nav-link[aria-expanded="true"],
+    .sidebar .nav-link.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* Arrow indicator */
+    .sidebar .nav-link[data-bs-toggle="collapse"]::after {
+      content: '›';
+      margin-left: auto;
+      font-size: 1rem;
+      transition: transform var(--transition);
+      color: #4a5070;
+    }
+
+    .sidebar .nav-link[data-bs-toggle="collapse"][aria-expanded="true"]::after {
+      transform: rotate(90deg);
+      color: var(--accent);
+    }
+
+    /* Sub-links */
+    .sidebar-submenu {
+      padding: 4px 0 4px 12px;
+      list-style: none;
+      margin: 0;
+    }
+
+    .sidebar-submenu .nav-link {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: #7b8099;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .sidebar-submenu .nav-link::before {
+      content: '–';
+      color: #3a3f58;
+      font-size: 0.7rem;
+    }
+
+    .sidebar-submenu .nav-link:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* ─── Main Content ─────────────────────────────────────── */
+    .main-content {
+      flex: 1;
+      padding: 36px 40px 100px;
+      background: var(--body-bg);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 600px 400px at 80% 10%, rgba(244, 168, 85, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 10% 80%, rgba(244, 168, 85, 0.04) 0%, transparent 70%);
+    }
+
+    /* Back button */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      text-decoration: none;
+      transition: all var(--transition);
+      margin-bottom: 28px;
+    }
+
+    .btn-back:hover {
+      background: var(--card-bg);
+      color: var(--text-dark);
+      border-color: #d0c8b8;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-back::before {
+      content: '←';
+    }
+
+    /* Hero text */
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .hero-lead {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .topic-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .topic-badge.html {
+      background: rgba(228, 77, 38, 0.1);
+      color: #e44d26;
+    }
+
+    .topic-badge.css {
+      background: rgba(38, 77, 228, 0.1);
+      color: #264de4;
+    }
+
+    .topic-badge.boot {
+      background: rgba(121, 82, 179, 0.1);
+      color: #7952b3;
+    }
+
+
+    .accordion {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .accordion-item {
+      background: var(--card-bg);
+      border: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-header {
+      margin: 0;
+    }
+
+    .accordion-button {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: var(--card-bg);
+      padding: 20px 24px;
+      box-shadow: none !important;
+      border: none;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .accordion-button::after {
+      filter: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f4a855'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    }
+
+    .accordion-button:not(.collapsed) {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .accordion-button:hover {
+      background: #faf7f0;
+    }
+
+    .accordion-body {
+      padding: 20px 24px 24px;
+      background: var(--card-bg);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+    }
+
+    .accordion-body p {
+      margin-bottom: 14px;
+    }
+
+    .accordion-body ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .accordion-body ul li a {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: #fffdf8;
+      transition: all var(--transition);
+    }
+
+    .accordion-body ul li a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+
+    .accordion-button span.topic-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .dot-html {
+      background: #e44d26;
+      box-shadow: 0 0 6px rgba(228, 77, 38, 0.4);
+    }
+
+    .dot-css {
+      background: #264de4;
+      box-shadow: 0 0 6px rgba(38, 77, 228, 0.4);
+    }
+
+    .dot-boot {
+      background: #7952b3;
+      box-shadow: 0 0 6px rgba(121, 82, 179, 0.4);
+    }
+
+    .dot-js {
+      background: #f4a855;
+      box-shadow: 0 0 6px rgba(244, 168, 85, 0.4);
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0 20px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── Footer ───────────────────────────────────────────── */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--footer-bg);
+      border-top: 1px solid #1e2130;
+      padding: 14px 32px;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #3a4060;
+      margin-right: 4px;
+    }
+
+    .footer-link {
+      font-size: 0.78rem;
+      color: #5a607a;
+      text-decoration: none;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .footer-sep {
+      color: #2a3050;
+      font-size: 0.8rem;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: #2d3562;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-copy strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ─── Animations ───────────────────────────────────────── */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-eyebrow {
+      animation: fadeSlideUp 0.5s ease both;
+    }
+
+    .hero-title {
+      animation: fadeSlideUp 0.5s 0.1s ease both;
+    }
+
+    .hero-lead {
+      animation: fadeSlideUp 0.5s 0.2s ease both;
+    }
+
+    .accordion {
+      animation: fadeSlideUp 0.5s 0.3s ease both;
+    }
+
+    /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 180px;
+        min-width: 180px;
+      }
+
+      .main-content {
+        padding: 24px 20px 100px;
+      }
+
+      footer {
+        padding: 12px 16px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container-fluid p-0">
+    <div class="d-flex flex-nowrap">
+
+      <!-- ── Sidebar ── -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="index.html" class="sidebar-brand">Topics</a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <span class="nav-category">HTML</span>
+          <a href="#htmlSubmenu" data-bs-toggle="collapse" class="nav-link" role="button" aria-expanded="false">
+            HTML
+          </a>
+          <ul class="collapse sidebar-submenu" id="htmlSubmenu">
+            <li><a href="list.html" class="nav-link">List</a></li>
+            <li><a href="table.html" class="nav-link">Table</a></li>
+            <li><a href="form.html" class="nav-link">Form</a></li>
+          </ul>
+
+          <span class="nav-category">CSS</span>
+          <a href="#cssSubmenu" data-bs-toggle="collapse" class="nav-link" role="button" aria-expanded="false">
+            CSS
+          </a>
+          <ul class="collapse sidebar-submenu" id="cssSubmenu">
+            <li><a href="selectors.html" class="nav-link">Selectors</a></li>
+            <li><a href="boxmodel.html" class="nav-link">Box Model</a></li>
+          </ul>
+
+          <span class="nav-category">Bootstrap</span>
+          <a href="#bootstrapSubmenu" data-bs-toggle="collapse" class="nav-link" role="button" aria-expanded="false">
+            Bootstrap
+          </a>
+          <ul class="collapse sidebar-submenu" id="bootstrapSubmenu">
+            <li><a href="grid.html" class="nav-link">Grid</a></li>
+            <li><a href="components.html" class="nav-link">Components</a></li>
+          </ul>
+
+          <span class="nav-category">JavaScript</span>
+          <a href="#jsSubmenu" data-bs-toggle="collapse" class="nav-link" role="button" aria-expanded="false">
+            JavaScript
+          </a>
+          <ul class="collapse sidebar-submenu" id="jsSubmenu">
+            <li><a href="js-form-ex.html" class="nav-link">Form Example</a></li>
+            <li><a href="js-dom-ex.html" class="nav-link">DOM Example</a></li>
+          </ul>
+
+        </nav>
+      </aside>
+
+      <!-- ── Main Content ── -->
+      <main class="main-content flex-grow-1">
+        <a href="assignment1.html" class="btn-back">Back to Home</a>
+
+        <p class="hero-eyebrow">Web Development Practice</p>
+        <h1 class="hero-title">Welcome to My<br>Website</h1>
+        <p class="hero-lead">Select a topic from the sidebar to explore HTML, CSS, and Bootstrap practice pages. Each
+          section covers essential concepts with live examples.</p>
+
+        <div class="section-divider">Explore Topics</div>
+
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+
+          <!-- HTML -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed d-flex align-items-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                aria-controls="flush-collapseOne">
+                <span class="topic-dot dot-html"></span>
+                HTML
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <p>HTML is the backbone of web pages. It uses tags to structure content like headings, paragraphs,
+                  links, images, and more.</p>
+                <ul>
+                  <li><a href="list.html">List Example</a></li>
+                  <li><a href="table.html">Table Example</a></li>
+                  <li><a href="form.html">Form Example</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSS -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed d-flex align-items-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                aria-controls="flush-collapseTwo">
+                <span class="topic-dot dot-css"></span>
+                CSS
+              </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <p>CSS styles HTML elements to make pages visually appealing through colors, fonts, spacing, and
+                  layouts.</p>
+                <ul>
+                  <li><a href="selectors.html">Selectors Example</a></li>
+                  <li><a href="boxmodel.html">Box Model Example</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bootstrap -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed d-flex align-items-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                aria-controls="flush-collapseThree">
+                <span class="topic-dot dot-boot"></span>
+                Bootstrap
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <p>Bootstrap is a CSS framework that provides ready-to-use components, a responsive grid system, and
+                  utilities.</p>
+                <ul>
+                  <li><a href="grid.html">Grid Example</a></li>
+                  <li><a href="components.html">Components Example</a></li>
+                  <li><a href="bootstrap.html">Css bootstrap example</a></li>
+                  <li><a href="Foodies_Delight.html">Foodies Delight</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- JavaScript -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed d-flex align-items-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                aria-controls="flush-collapseFour">
+                <span class="topic-dot dot-js"></span>
+                JavaScript
+              </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <p>JavaScript is a programming language that enables interactive web pages, dynamic content updates,
+                  and client-side logic.</p>
+                <ul>
+                  <li><a href="js-form-ex.html">Form Example</a></li>
+                  <li><a href="js-dom-ex.html">DOM Example</a></li>
+                  <li><a href="js-array-ex.html" class="nav-link">Array Example</a></li>
+                  <li><a href="js_functions.html">Functions</a></li>
+                  <li><a href="js_inner.html">innerHTML Example</a></li>
+                  <li><a href="js_map.html">Map Example</a></li>
+                  <li><a href="recursive_sum.html">Recursive Sum Example</a></li>
+                  <li><a href="js_live_dom_ex.html">Live DOM PlayGround</a></li>
+                  <li><a href="js.number_guess.html">Number Guess Game</a></li>
+                  <li><a href="calculator.html">Calculator Example</a></li>
+                  <li><a href="birthday.html">Birthday Guess Example</a></li>
+                  <li><a href="digitalclock.html">Digital Clock Example</a></li>
+                  <li><a href="js_table_cinema_database.html">Cinema Database Table Example</a></li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <span class="footer-section-label">HTML</span>
+        <a href="list.html" class="footer-link">List</a>
+        <a href="table.html" class="footer-link">Table</a>
+        <a href="form.html" class="footer-link">Form</a>
+        <span class="footer-sep">|</span>
+        <span class="footer-section-label">CSS</span>
+        <a href="selectors.html" class="footer-link">Selectors</a>
+        <a href="boxmodel.html" class="footer-link">Box Model</a>
+        <span class="footer-sep">|</span>
+        <span class="footer-section-label">Bootstrap</span>
+        <a href="grid.html" class="footer-link">Grid</a>
+        <a href="components.html" class="footer-link">Components</a>
+        <a href="bootstrap.html" class="footer-link">Css bootstrap example</a>
+        <a href="Foodies_Delight.html" class="footer-link">Foodies Delight</a>
+        <span class="footer-sep">|</span>
+        <span class="footer-section-label">JavaScript</span>
+        <a href="#flush-collapseFour" class="footer-link">JavaScript Practice</a>
+
+      </div>
+      <p class="footer-copy">© 2026 <strong>Static Website</strong></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

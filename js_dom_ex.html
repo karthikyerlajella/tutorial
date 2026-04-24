@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Example</title>
+</head>
+
+<body>
+    <div class="items">
+        hello
+    </div>
+
+    <h1 id="ip">This is heading 1</h1>
+
+    <p>This is paragraph</p>
+    <p class="op"></p>
+    <p id="title">Click me to change the heading!</p>
+    <button id="MyButton">click Now</button>
+    <button id="myButton1">Mouse over</button>
+    <button id="addImgBtn">Add Image</button>
+    <button id="rmvImgBtn">Remove Image</button>
+    <script>
+        // Create a new paragraph and add it to the body
+        let newpara = document.createElement("p");
+        newpara.textContent = "This is a new paragraph";
+        document.body.appendChild(newpara);
+
+        // Select elements
+        document.getElementById("title").addEventListener("click", function () {
+            let title = document.getElementById("ip");
+            title.textContent = "hello";
+            title.style.color = "red";
+            title.style.fontSize = "28px";
+        });
+        let title = document.getElementById("ip");
+        document.getElementById("myButton1").addEventListener("click", function () {
+            let paragraphsArray = document.getElementsByTagName("p");
+
+            if (paragraphsArray.length > 0) {
+                paragraphsArray[paragraphsArray.length - 1].remove();
+            } else {
+                alert("No paragraphs left to remove");
+            }
+        });
+
+        let items = document.getElementsByClassName("items");
+
+        let paragraphs = document.getElementsByTagName("p"); // all <p> elements
+
+        console.log(title);       // logs <h1>
+        console.log(items);       // logs HTMLCollection of .items
+        console.log(paragraphs);  // logs all <p> elements
+
+        // Update content
+        document.getElementById("ip").innerHTML = "Example Heading";
+        document.querySelector(".op").innerText = "Test using innerText";
+        document.querySelector(".op").textContent = "Sample using textContent";
+
+        // Remove an element 
+        // title.remove();
+        document.getElementById("MyButton").addEventListener("click", function () {
+            alert("Button Clicked!!");
+        })
+        document.getElementById("myButton1").addEventListener("mouseover", function () {
+            alert("Hovered");
+        })
+        document.getElementById("addImgBtn").addEventListener("click", function () {
+            if (!document.getElementById("myImage")) {
+                let img = document.createElement("img");
+                img.id = "myImage";
+                img.src = "https://th.bing.com/th/id/OIP.eUnTPQXkVSe6zm9U9dxuLAHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3";
+                img.alt = "Dynamically added test image";
+                img.style.display = "block";
+                img.style.marginTop = "20px";
+
+                document.body.appendChild(img);
+            } else {
+                alert("Image already exists!");
+            }
+        });
+
+        document.getElementById("rmvImgBtn").addEventListener("click", function () {
+            let img = document.getElementById("myImage");
+            if (img) {
+                img.remove();
+            } else {
+                alert("No image to remove!");
+            }
+        });
+
+        document.write("hello this write message");
+        document.print("this is the print message");
+
+    </script>
+</body>
+
+</html>

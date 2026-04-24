@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions</title>
+</head>
+
+
+
+<body>
+
+    <h1>Functions</h1>
+    <p id="h1"></p>
+
+
+    <div id="input"></div>
+
+    <script>
+
+        let greet = function () {
+            console.log("have a good day!!!");
+        }
+        greet();
+
+        const test = () => {
+            console.log("no argument");
+        }
+        test();
+
+        const sum = (a, b = 7) => {
+            return a + b;
+        }
+        console.log(sum(5)); // output: 12 (5 + default 7)
+
+        const varma = (name = 'siva', location = 'hyd') => {
+            return "Hello " + name + " " + location;
+        }
+        console.log(varma('ram', 'vizag')); // output: Hello ram vizag
+
+        let output = document.getElementById("h1");
+
+
+        let put = document.getElementById("input");
+
+        function test2() {
+            output.innerHTML += '<br>test2 started!';
+            output.innerHTML += '<br>test2 finished!';
+        }
+
+        function test1() {
+            output.innerHTML += 'test1 started!';
+            test2();
+            output.innerHTML += '<br>test1 finished';
+        }
+        test1();
+
+        function wish(name, callback) {
+            callback(name);
+        }
+        function greet3(name) {
+            console.log("hello " + name);
+        }
+        wish("siva", greet3); // output in console: hello siva
+
+        function me(n, callback) {
+            put.innerHTML += '<br> hello ' + n;
+            callback(n);
+        }
+        function getting() {
+            put.innerHTML += '<br> getting started';
+        }
+        me('siva', getting);
+
+    </script>
+
+</body>
+
+</html>

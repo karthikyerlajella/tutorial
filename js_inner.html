@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<title>Inner HTML</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-5 bg-light">
+
+  <div class="container text-center">
+    <h1 class="text-primary mb-4">JavaScript  INNER HTML</h1>
+    <form>
+      <input type="text" class="form-control mb-3" placeholder="Type something here" id="number">
+      <input type="button" class="btn btn-success" onclick="test()" value="click Now">
+    </form><br>
+   
+    
+        <div id="output" class="fw-bold text-dark"></div>
+  </div>
+
+<script>
+ function test() {
+   document.getElementById("output").innerHTML="";
+   var n = document.getElementById("number").value;
+    var bstart = "<b style='color:red'>";
+   var bend = "</b>";
+   document.getElementById("output").innerHTML = bstart+n+bend;
+}
+</script>
+
+</body>
+</html>

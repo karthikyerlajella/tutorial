@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <input type="text" id="myInput">
+    <button onclick="sortText()">Sort</button>
+    <p id="output"></p>
+
+    <script>
+        function sortText() {
+            let str = document.getElementById("myInput").value;
+            let words = str.split(" ");
+            words.sort();
+            document.getElementById("output").innerText = words.join(" ");
+        }
+    </script>
+
+</body>
+</html>

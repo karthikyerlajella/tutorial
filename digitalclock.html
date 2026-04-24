@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0d0d0d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        h1 {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+
+        #clock {
+            background: #111;
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 20px;
+            padding: 40px 50px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.08);
+        }
+
+        #timeDisplay {
+            font-size: 64px;
+            font-weight: 700;
+            color: #00f2fe;
+            letter-spacing: 6px;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
+        }
+
+
+        .colon {
+            display: inline-block;
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        #dateDisplay {
+            margin-top: 14px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.15em;
+        }
+
+        #ampm {
+            font-size: 18px;
+            color: rgba(0, 242, 254, 0.5);
+            margin-left: 10px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Current Time</h1>
+
+    <div id="clock">
+        <div id="timeDisplay"></div>
+        <div id="dateDisplay"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            const h = String(hours).padStart(2, '0');
+
+
+            document.getElementById("timeDisplay").innerHTML =
+                `${h}<span class="colon">:</span>${minutes}<span class="colon">:</span>${seconds}<span id="ampm">${ampm}</span>`;
+
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("dateDisplay").textContent =
+                now.toLocaleDateString(undefined, options);
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); 
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0f0f13;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 24px;
+            padding: 36px 40px;
+            width: 100%;
+            max-width: 540px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #00f2fe;
+            margin-bottom: 28px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 7px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="date"],
+        input[type="datetime-local"],
+        input[type="search"],
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #00f2fe;
+            background: rgba(0, 242, 254, 0.06);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.5);
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        select option {
+            background: #1a1a2e;
+        }
+
+        .radio-group,
+        .check-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .radio-group label,
+        .check-group label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: none;
+            letter-spacing: 0;
+            cursor: pointer;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            accent-color: #00f2fe;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            margin: 24px 0;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, opacity 0.15s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #000;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Console output box */
+        #output {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 13px;
+            color: #00f2fe;
+            white-space: pre-wrap;
+            font-family: monospace;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-card">
+        <form action="#" method="get">
+
+            <div class="form-title">📋 Registration Form</div>
+
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" autofocus placeholder="Enter username">
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter password">
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter email">
+            </div>
+
+            <div class="field">
+                <label for="Address">Address</label>
+                <textarea name="Address" id="Address" placeholder="Enter your address"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <!-- ✅ FIX 2: radio buttons now have ids so they can be targeted -->
+                    <label><input type="radio" name="Gender" id="genderMale" value="Male"> Male</label>
+                    <label><input type="radio" name="Gender" id="genderFemale" value="Female"> Female</label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Courses</label>
+                <div class="check-group">
+                    <!-- ✅ FIX 3: checkboxes keep name="course" — JS reads all checked ones -->
+                    <label><input type="checkbox" name="course" value="DBMS"> DBMS</label>
+                    <label><input type="checkbox" name="course" value="OS"> OS</label>
+                    <label><input type="checkbox" name="course" value="Full Stack"> Full Stack</label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="branch">Branch</label>
+                <select name="branch" id="branch">
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="dob">Date of Birth</label>
+                <input type="date" name="dob" id="dob">
+            </div>
+
+            <div class="field">
+                <label for="datetime">Date &amp; Time</label>
+                <input type="datetime-local" name="datetime" id="datetime">
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="btn-row">
+                <!-- ✅ FIX 4 & 5: added id="reset" and id="submit" so JS can find them -->
+                <button type="button" id="reset" class="btn-reset">Reset</button>
+                <button type="button" id="submit" class="btn-submit">Submit</button>
+            </div>
+
+        </form>
+
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+
+        let details = {};
+
+        let username = document.getElementById("username");
+        let password = document.getElementById("password");
+        let email = document.getElementById("email");
+
+        let address = document.getElementById("Address");
+
+        let branch = document.getElementById("branch");
+        let dob = document.getElementById("dob");
+        let datetime = document.getElementById("datetime");
+
+        let submitBtn = document.getElementById("submit");
+
+        let resetBtn = document.getElementById("reset");
+
+        submitBtn.addEventListener("click", function () {
+
+            details.username = username.value;
+            details.password = password.value;
+            details.email = email.value;
+            details.address = address.value;
+            details.branch = branch.value;
+            details.dob = dob.value;
+            details.datetime = datetime.value;
+
+
+            const checkedGender = document.querySelector('input[name="Gender"]:checked');
+            details.gender = checkedGender ? checkedGender.value : "Not selected";
+
+
+            const checkedCourses = document.querySelectorAll('input[name="course"]:checked');
+            details.courses = Array.from(checkedCourses).map(cb => cb.value);
+
+            console.log(details);
+
+
+            const output = document.getElementById("output");
+            output.style.display = "block";
+            output.textContent = JSON.stringify(details, null, 2);
+        });
+
+        resetBtn.addEventListener("click", function () {
+            details = {};
+
+
+            document.querySelectorAll('input, textarea, select').forEach(el => {
+                if (el.type === 'checkbox' || el.type === 'radio') {
+                    el.checked = false;
+                } else {
+                    el.value = '';
+                }
+            });
+
+            const output = document.getElementById("output");
+            output.style.display = "none";
+            output.textContent = "";
+
+            console.log("Form reset. details =", details);
+        });
+    </script>
+
+</body>
+
+</html>

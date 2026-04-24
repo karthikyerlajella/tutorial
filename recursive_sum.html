@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<title>Sum of Natural Numbers (Recursion)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-5 bg-light">
+
+  <div class="container text-center">
+    <h1 class="text-primary mb-4">Recursive sum</h1>
+    
+    <input type="number" id="numInput" class="form-control w-25 d-inline mb-3" placeholder="Enter a number">
+    <button class="btn btn-success mb-3" onclick="calculateSum()">Calculate Sum</button>
+    
+    <div id="output" class="fw-bold text-dark mt-3"></div>
+  </div>
+
+<script>
+function sum(n) {
+  if (n <= 1) {
+    return n; 
+  }
+  return n + sum(n - 1); 
+}
+
+function calculateSum() {
+  let n = parseInt(document.getElementById("numInput").value);
+  let result = sum(n);
+  document.getElementById("output").innerHTML = 
+    "Sum of first " + n + " natural numbers is: " + result;
+}
+
+
+var a = "the qucik brown fox jump over a lazy doz";
+
+let b = a.split(' ').sort().join(' ');
+console.log(b);
+</script>
+
+</body>
+</html>

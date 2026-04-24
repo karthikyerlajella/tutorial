@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<title>Page Division</title>
+<link href="style.css" rel=stylesheet>
+</head>
+<body>
+<div id="header">Header Division</div>
+<div id="main"> 
+ <div id="mleft">
+  <form action="https://www.google.com/" method="get">
+    <h2>Registration Form</h2>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label>Password</label>
+    <input type="password" name="password" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Address</label>
+    <textarea name="address"></textarea>
+
+    <label for="gender">Gender</label>
+    <input type="radio" name="gender" value="Male" id="gender"> Male
+    <input type="radio" name="gender" value="Female" id="gender"> Female
+
+    <label for="courses">Courses</label>
+    <input type="checkbox" name="course" value="DBMS" id="courses"> DBMS
+    <input type="checkbox" name="course" value="OS" id="courses"> OS
+    <input type="checkbox" name="course" value="Full Stack" id="courses"> Full Stack
+
+    <label>Branch</label>
+    <select name="branch">
+      <option>CSE</option>
+      <option>ECE</option>
+    </select>
+
+    <label>DOB</label>
+    <input type="date" name="dob">
+
+    <label>Photo Upload</label>
+    <input type="file" name="photo">
+
+    <div style="display:flex; justify-content:space-between;">
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+ </div>
+ <div id="mright">
+  <h1>About Section</h1>
+  <p>
+    Welcome to our platform! We aim to provide valuable resources and engaging experiences 
+    that help learners and professionals grow. Our mission is to combine creativity, 
+    technology, and knowledge to deliver solutions that inspire and empower.
+  </p>
+ </div>
+</div>
+<div id="footer">Footer Bodge</div>
+</body>
+</html>

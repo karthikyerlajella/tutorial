@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+
+    <ul id="hello"></ul>
+    <!-- <input type="text" id="age" placeholder="enter the age">
+    <button id="button" onclick="test()">checkAge</button> -->
+    <p id="demo"></p>
+    <h1> </h1>
+
+</head>
+
+<body>
+
+
+
+    <script>
+        // let hello = document.getElementById("hello");
+        // const arr = ['rama', 'durga', 'prasad', 'karthik'];
+        // let arr2 = arr.map(function (value) {
+        //     return `<li>${value}</li>`;
+        // })
+        // hello.innerHTML = arr2;
+
+        // function test() {
+        //     let l = document.getElementById("age").value.split(' ');
+
+        //     document.getElementById("demo").innerHTML = l.find(checkAge);
+        //     console.log(l.filter(checkAge));
+        //     console.log(l.find(k => k >= 18));
+        // }
+        // function checkAge(age) {
+        //     return age >= 18;
+        // }
+
+        // function test() {
+        //     let ip = document.getElementById("age").value.split(' ').map(Number);
+        //     let arr = ip.filter(k => k >= 0);
+        //     let sum = arr.reduce((a, b) => (a + b), 0);
+        //     console.log(sum);
+
+        // }
+        // let arr3 = [175, 50, 25];
+        // function subofArray(total, num) {
+        //     return total - num;
+        // }
+
+        // function myCampus(item) {
+        //     console.log(arr3.reduceRight(subofArray));
+        // }
+        // myCampus();
+        //  let arr3 = [175, 50, 25];
+        // function subofArray(total, num) {
+        //     return total - num;
+        // }
+        // function myCampus(item) {
+        //     console.log(arr3.reduceRight(subofArray));
+        // }
+        // myCampus();
+
+
+        // function mean() {
+        //     let arr4 = [1, 2, 3, 4, 5];
+        //     let sum = arr4.reduce((a, b) => a + b, 0);
+        //     document.getElementById("demo").innerHTML = sum;
+        // }
+        // mean();
+        // function median() {
+        //     let arr5 = [1, 2, 3, 4, 5];
+        //     let sorted = arr5.sort((a, b) => a - b);
+        //     let mid = Math.floor(sorted.length / 2);
+
+        //     if (sorted.length % 2 === 0) {
+        //         let result = (s,rted[mid - 1] + sorted[mid]) / 2;
+        //         document.querySelector("h1").textContent = result;
+        //         return result;
+        //     } else {
+        //         let result = sorted[mid];
+        //         document.querySelector("h1").textContent = result;
+        //         return result;
+        //     }
+        // }
+        // median();
+
+        // const arrinput = [
+        //     { name: 'John', age: 13 },
+        //     { name: 'Mark', age: 56 },
+        //     { name: 'Rachel', age: 45 },
+        //     { name: 'Nate', age: 67 },
+        //     { name: 'Jennifer', age: 65 }
+        // ]
+        //Difference of old and young 
+        // function test() {
+        //     let arr = arrinput.map(k => k.age);
+        //     let old1 = arr.filter((a, b) => (a > b) ? a : b);
+        //     let old = Math.max(...arr);
+        //     let young = Math.min(...arr);
+        //     let diff = old - young;
+        //     console.log(diff);
+
+        // }
+        // test();
+
+        const arrinput = [
+            { name: 'John', scores: [90, 85, 92] },
+            { name: 'Mark', scores: [75, 80, 85] },
+            { name: 'Rachel', scores: [90, 95, 85] },
+            { name: 'Nate', scores: [100, 100, 100] },
+
+        ]
+        function test() {
+            let arr = arrinput.map(student => {
+                const sum = student.scores.reduce((acc, score) => acc + score);
+                return { name: student.name, average: sum / student.scores.length }
+            });
+
+            const highPerformance = arr.filter(student => student.average >= 90);
+            console.log(highPerformance);
+        }
+        test();
+
+
+
+
+    </script>
+</body>
+
+</html>
